@@ -1,0 +1,6 @@
+config BR2_PACKAGE_DWM
+	bool "dwm"
+	help
+	  Dynamic Window Manager (dwm)
+
+	  https://dwm.suckless.org/
