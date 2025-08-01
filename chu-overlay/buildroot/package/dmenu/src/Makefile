@@ -1,7 +1,23 @@
 # dmenu - dynamic menu
 # See LICENSE file for copyright and license details.
 
-include config.mk
+# dmenu version
+VERSION = 5.3
+
+# paths
+PREFIX = /usr
+MANPREFIX = $(PREFIX)/share/man
+
+# freetype
+FREETYPELIBS = -lfontconfig -lXft
+FREETYPEINC = $(STAGING_DIR)/usr/include/freetype2
+
+# includes and libs
+INCS = -I$(FREETYPEINC)
+LIBS = -lX11 $(FREETYPELIBS)
+
+# compiler and linker
+CC = cc
 
 SRC = drw.c dmenu.c stest.c util.c
 OBJ = $(SRC:.c=.o)
@@ -9,25 +25,22 @@ OBJ = $(SRC:.c=.o)
 all: dmenu stest
 
 .c.o:
-	$(CC) -c $(CFLAGS) $<
+	$(CC) -c $(CFLAGS) -std=c99 -pedantic -Wall -Os $(INCS) -D_DEFAULT_SOURCE -D_BSD_SOURCE -D_XOPEN_SOURCE=700 -D_POSIX_C_SOURCE=200809L -DVERSION=\"$(VERSION)\" $<
 
-config.h:
-	cp config.def.h $@
-
-$(OBJ): arg.h config.h config.mk drw.h
+$(OBJ): arg.h drw.h
 
 dmenu: dmenu.o drw.o util.o
-	$(CC) -o $@ dmenu.o drw.o util.o $(LDFLAGS)
+	$(CC) -o $@ dmenu.o drw.o util.o $(LIBS)
 
 stest: stest.o
-	$(CC) -o $@ stest.o $(LDFLAGS)
+	$(CC) -o $@ stest.o $(LIBS)
 
 clean:
 	rm -f dmenu stest $(OBJ) dmenu-$(VERSION).tar.gz
 
 dist: clean
 	mkdir -p dmenu-$(VERSION)
-	cp LICENSE Makefile README arg.h config.def.h config.mk dmenu.1\
+	cp LICENSE Makefile README arg.h config.def.h dmenu.1\
 		drw.h util.h dmenu_path dmenu_run stest.1 $(SRC)\
 		dmenu-$(VERSION)
 	tar -cf dmenu-$(VERSION).tar dmenu-$(VERSION)

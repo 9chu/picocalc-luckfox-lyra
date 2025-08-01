@@ -1,0 +1,44 @@
+#!/bin/sh
+#
+# Auto create swapfile
+#
+
+SWAPFILE=/swapfile
+SWAPSIZE=256
+
+start() {
+    if [ ! -f "$SWAPFILE" ]; then
+        dd if=/dev/zero of=$SWAPFILE bs=1M count=$SWAPSIZE
+        chmod 600 $SWAPFILE
+        mkswap $SWAPFILE
+    fi
+
+    swapon $SWAPFILE
+    if [ $? -eq 0 ]; then
+        echo "Swapfile enabled."
+    else
+        echo "Failed to enable swapfile."
+        return 1
+    fi
+}
+
+stop() {
+    swapoff $SWAPFILE
+}
+
+case "$1" in
+    start)
+        start
+        ;;
+    stop)
+        stop
+        ;;
+    restart)
+        stop
+        start
+        ;;
+    *)
+        echo "Usage: $0 {start|stop|restart}"
+        exit 1
+        ;;
+esac

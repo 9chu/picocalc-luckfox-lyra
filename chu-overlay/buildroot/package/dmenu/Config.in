@@ -1,5 +1,8 @@
 config BR2_PACKAGE_DMENU
 	bool "dmenu"
+	depends on BR2_PACKAGE_XORG7
+	select BR2_PACKAGE_XLIB_LIBX11
+	select BR2_PACKAGE_XLIB_LIBXFT
 	help
 	  Dynamic Menu (dmenu)
 

@@ -1,0 +1,3 @@
+#!/bin/sh
+
+free | sed -n '2{p;q}' | awk '{printf ("%2.0fM\n", ($3/1024))}'

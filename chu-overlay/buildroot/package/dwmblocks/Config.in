@@ -1,9 +1,7 @@
-config BR2_PACKAGE_DWM
-	bool "dwm"
+config BR2_PACKAGE_DWMBLOCKS
+	bool "dwmblocks"
 	depends on BR2_PACKAGE_XORG7
 	select BR2_PACKAGE_XLIB_LIBX11
 	select BR2_PACKAGE_XLIB_LIBXFT
 	help
-	  Dynamic Window Manager (dwm)
-
-	  https://dwm.suckless.org/
+	  https://github.com/LukeSmithxyz/dwmblocks

@@ -1,7 +1,23 @@
 # dwm - dynamic window manager
 # See LICENSE file for copyright and license details.
 
-include config.mk
+# dwm version
+VERSION = 6.5
+
+# paths
+PREFIX = /usr
+MANPREFIX = ${PREFIX}/share/man
+
+# freetype
+FREETYPELIBS = -lfontconfig -lXft
+FREETYPEINC = $(STAGING_DIR)/usr/include/freetype2
+
+# includes and libs
+INCS = -I${FREETYPEINC}
+LIBS = -lX11 ${FREETYPELIBS}
+
+# compiler and linker
+CC = cc
 
 SRC = drw.c dwm.c util.c
 OBJ = ${SRC:.c=.o}
@@ -9,22 +25,19 @@ OBJ = ${SRC:.c=.o}
 all: dwm
 
 .c.o:
-	${CC} -c ${CFLAGS} $<
+	${CC} -c ${CFLAGS} -std=c99 -pedantic -Wall -Wno-deprecated-declarations -Os ${INCS} -D_DEFAULT_SOURCE -D_BSD_SOURCE -D_XOPEN_SOURCE=700L -DVERSION=\"${VERSION}\" $<
 
-${OBJ}: config.h config.mk
-
-config.h:
-	cp config.def.h $@
+${OBJ}: config.h
 
 dwm: ${OBJ}
-	${CC} -o $@ ${OBJ} ${LDFLAGS}
+	${CC} -o $@ ${OBJ} ${LIBS}
 
 clean:
 	rm -f dwm ${OBJ} dwm-${VERSION}.tar.gz
 
 dist: clean
 	mkdir -p dwm-${VERSION}
-	cp -R LICENSE Makefile README config.def.h config.mk\
+	cp -R LICENSE Makefile README config.def.h \
 		dwm.1 drw.h util.h ${SRC} dwm.png transient.c dwm-${VERSION}
 	tar -cf dwm-${VERSION}.tar dwm-${VERSION}
 	gzip dwm-${VERSION}.tar

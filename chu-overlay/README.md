@@ -6,10 +6,10 @@
     - Enable overlay fs support
 - DTS changes
     - Switch from hard-pwm sound to soft-pwm sound
-    - Change ds3231 reg to 0x57 (for working with https://detail.tmall.com/item.htm?id=42579765423)
 - Kernel
     - Enable MMC SPI driver
 - Packages
-    - Enable X11
+    - Enable X11 & start X on startup
     - Enable RetroArch
     - Enable many other packages
+    - Integrade dwm/dwmblocks/dmenu

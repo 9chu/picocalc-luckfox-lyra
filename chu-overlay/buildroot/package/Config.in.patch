@@ -1,11 +1,13 @@
 --- a/buildroot/package/Config.in
 +++ b/buildroot/package/Config.in
-@@ -400,6 +400,8 @@
- 	source "package/dtc/Config.in"
- 	source "package/dtv-scan-tables/Config.in"
- 	source "package/dvb-apps/Config.in"
-+	source "package/dmenu/Config.in"
-+	source "package/dwm/Config.in"
- 	source "package/dvblast/Config.in"
- 	source "package/dvbsnoop/Config.in"
- 	source "package/eeprog/Config.in"
+@@ -2905,6 +2905,10 @@
+ endmenu
+ 
+ menu "PicoCalc"
++        source "package/dmenu/Config.in"
++        source "package/dwm/Config.in"
++        source "package/dwmblocks/Config.in"
++        source "package/noto-emoji/Config.in"
+         source "package/libgc/Config.in"
+         source "package/w3m/Config.in"
+         source "package/libxapian/Config.in"

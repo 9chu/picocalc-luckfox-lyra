@@ -236,7 +236,7 @@
 
     rtc: rtc@68 {
         compatible = "dallas,ds3231";
-        reg = <0x57>;
+        reg = <0x68>;
         status = "okay";
     };
 
