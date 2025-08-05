@@ -1,0 +1,6 @@
+config BR2_PACKAGE_UBUNTU_FONTS
+	bool "Ubuntu Fonts"
+	help
+	  Ubuntu Sans Mono Fonts
+
+	  https://github.com/canonical/Ubuntu-Sans-Mono-fonts

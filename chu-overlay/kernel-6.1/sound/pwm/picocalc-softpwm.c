@@ -230,7 +230,7 @@ static int softpwm_sound_dev_init(struct softpwm_sound *softpwm_snd)
 
 	ret = snd_card_new(&softpwm_snd->pdev->dev, SNDRV_DEFAULT_IDX1,
 		SNDRV_DEFAULT_STR1, THIS_MODULE, 0, &card);
-	if (ret)
+	if (ret < 0)
 		return ret;
 
     softpwm_snd->snd_card = card;
@@ -239,11 +239,11 @@ static int softpwm_sound_dev_init(struct softpwm_sound *softpwm_snd)
 	strlcpy(card->longname, "Soft PWM Audio", sizeof(card->longname));
 
 	ret = snd_device_new(card, SNDRV_DEV_LOWLEVEL, softpwm_snd, &ops);
-	if (ret)
+	if (ret < 0)
 		goto error;
 
 	ret = snd_pcm_new(card, card->driver, 0, 1, 0, &pcm);
-	if (ret)
+	if (ret < 0)
 		goto error;
 
 	snd_pcm_set_ops(pcm, SNDRV_PCM_STREAM_PLAYBACK, &softpwm_pcm_playback_ops);

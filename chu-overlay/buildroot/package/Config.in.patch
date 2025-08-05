@@ -1,6 +1,6 @@
 --- a/buildroot/package/Config.in
 +++ b/buildroot/package/Config.in
-@@ -2905,6 +2905,10 @@
+@@ -2905,6 +2905,11 @@
  endmenu
  
  menu "PicoCalc"
@@ -8,6 +8,7 @@
 +        source "package/dwm/Config.in"
 +        source "package/dwmblocks/Config.in"
 +        source "package/noto-emoji/Config.in"
++        source "package/ubuntu-fonts/Config.in"
          source "package/libgc/Config.in"
          source "package/w3m/Config.in"
          source "package/libxapian/Config.in"
